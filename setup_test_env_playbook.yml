@@ -12,3 +12,9 @@
         dest: /local/mnt/workspace
       tags:
         - copy
+    - name: fetching logs
+      fetch:
+        src: /local/mnt/workspace/log
+        dest: /local/mnt/workspace
+      tags:
+        - fetch
