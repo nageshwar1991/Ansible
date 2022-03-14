@@ -1,6 +1,7 @@
 ---
 - name: setting up test environment 
   hosts: all
+  become: yes
   tasks:
     - name: checking status of hosts 
       action: ping
