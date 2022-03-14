@@ -1,0 +1,14 @@
+---
+- name: setting up test environment 
+  hosts: all
+  tasks:
+    - name: checking status of hosts 
+      action: ping
+      tags:
+        - ping
+    - name: copy binaries 
+      copy:
+        src: /local/mnt/workspace
+        dest: /local/mnt/workspace
+      tags:
+        - copy
