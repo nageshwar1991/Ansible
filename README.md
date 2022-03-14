@@ -10,7 +10,9 @@ https://docs.ansible.com/ansible/latest/installation_guide/index.html
 Installation on linux:
 -------------------------
 $ sudo apt-get install software-properties-common
+
 (  software-properties-common    ,  is a base package which is required to install ansible )
+
 $ sudo apt-add-repository ppa:ansible/ansible
 
 $ sudo apt-get update
@@ -67,60 +69,90 @@ Syntx of adhoc commands
 $ ansible  all/group_name/ipaddress -i  path_of_inventory_file -m modulename  -a  'arguments'
 
 1) command - This module is used for executing basic linux commands on managed nodes.
-            $ ansible all -i myinventory -m command -a 'free'
+
+$ ansible all -i myinventory -m command -a 'free'
             
 2) shell -  This module is used to execute commands which involved redirection and piping and to execute shell scripts on managed nodes.
-            $ ansible  all  -m  shell -a 'ls -la > file2'
+
+$ ansible  all  -m  shell -a 'ls -la > file2'
             
 3) ping  --  This module is used to check if the remote server is pingable or not.
-            $ ansible all -m ping.
+
+$ ansible all -m ping.
             
 4) user --  This module is used for user management like create user, setting password, assign home directory  etc
-            $ ansible  all -m user  -a  'name=nageshwa  password=welcome'  ( we ger error : permission denied )
-            $ ansible  all -m user  -a  'name=kiran  password=welcome'  -b  ( become , for higher privileges on managed nodes )
-            $ ansible all -m user  -a 'name=Ravi password=freefree uid=1234 comment="A regular user"  home=/home/ubuntu/Ravi shell=/bin/bash' -b
+
+$ ansible  all -m user  -a  'name=nageshwa  password=welcome'  ( we ger error : permission denied )
+
+$ ansible  all -m user  -a  'name=kiran  password=welcome'  -b  ( become , for higher privileges on managed nodes )
+
+$ ansible all -m user  -a 'name=Ravi password=freefree uid=1234 comment="A regular user"  home=/home/ubuntu/Ravi shell=/bin/bash' -b
             
 5) copy  --  This module is used to copy the files and folders from controller to managed nodes
-            $ ansible all -m  copy  -a 'src=/local/mnt/workspace/script     dest=/tmp'
+
+$ ansible all -m  copy  -a 'src=/local/mnt/workspace/script     dest=/tmp'
 
 6) fetch  --  This module is used to copy files and folder from managed nodes to controller
-            $ ansible all  -m fetch  -a 'src=/local/mnt/workspace/script  dest=/tmp'  -b
+
+$ ansible all  -m fetch  -a 'src=/local/mnt/workspace/script  dest=/tmp'  -b
             
 7) file  --  This module is used for creating or deleting files and folders on managed nodes.
-            $ ansible all  -m  file -a  'name=/local/mnt/workspace/file  state=touch' ( to create file)
-            $ ansible all  -m  file -a  'name=/local/mnt/workspace/file  state=absent' (to delete file)
-                state=touch   is to create files
-                state=directory  is to create directory
-                state=absent  is for deleting file/directory
-            $  ansible all  -m  file -a  'name=file1  state=touch owner=nageshwa group=video  mode=700'  -b
-                    The above command will execute  only if Anu user and Ravi  group is available in all nodes.
-                    Notes:
-                    File module can be used to change the ownership, group ownership and permissions on the file.
+
+$ ansible all  -m  file -a  'name=/local/mnt/workspace/file  state=touch' ( to create file)
+
+$ ansible all  -m  file -a  'name=/local/mnt/workspace/file  state=absent' (to delete file)
+
+state=touch   is to create files
+
+state=directory  is to create directory
+
+state=absent  is for deleting file/directory
+
+$  ansible all  -m  file -a  'name=file1  state=touch owner=nageshwa group=video  mode=700'  -b
+
+The above command will execute  only if Anu user and Ravi  group is available in all nodes.
+
+Notes: File module can be used to change the ownership, group ownership and permissions on the file.
             
 8) stat  --  Used to capture detailed information about files and folders present in managed nodes.
+
 9) debug --  Used to display output of any module
+
 10) apt   --  Used for performing package management on managed nodes ie installing softwares / upgrading repositories  etc . It works on ubuntu, debain flavours of linux. 
-              $ ansible all -m apt  -a 'name=git  state=present' -b
-                    state=present  is for installation
-                    state=latest    for upgradation
-                    state=absent    for uninstallation
+
+$ ansible all -m apt  -a 'name=git  state=present' -b
+
+state=present  is for installation
+
+state=latest    for upgradation
+
+state=absent    for uninstallation
 
 11) yum  --  similar to apt module. It works on Red hat linux, centos etc
+
 12) git  --  used to perform git version controlling on managed nodes
-              $ ansible all -m  git  -a  'repo=https://github.com/nageshwar1991/Ansible.git  dest=/tmp/mygit' -b
+
+$ ansible all -m  git  -a  'repo=https://github.com/nageshwar1991/Ansible.git  dest=/tmp/mygit' -b
 
 13) replace -- This is used to replace specific text in configuration file with some other text.
-              $  ansible all  -m replace  -a 'regexp=1234 replace=5678 path=/local/mnt/workspace/file'  -b
+
+$  ansible all  -m replace  -a 'regexp=1234 replace=5678 path=/local/mnt/workspace/file'  -b
 
 14) service  -- used for starting / stoping / restarting services on managed nodes.
-                $  ansible all   -m service    -a 'name=tomcat8  state=restarted'  -b
-                state=restarted is for restarting a service
-                state=stopped  is for stopping a running service
-                state=started  is for starting a stopped service
+
+$  ansible all   -m service    -a 'name=tomcat8  state=restarted'  -b
+
+state=restarted is for restarting a service
+
+state=stopped  is for stopping a running service
+
+state=started  is for starting a stopped service
                 
 15) include  --  Used for calling child play books  from parent play book
+
 16) uri    -- useful in checking  if remote url is reachable or not.
-              $ ansible all -m   uri  -a 'url=http://videodash'
+
+$ ansible all -m   uri  -a 'url=http://videodash'
 
 17) docker_container  --  used to execute docker  commands related to container management on managed nodes
 18) docker_image  --  used to execute commands related to docker images on managed nodes.
