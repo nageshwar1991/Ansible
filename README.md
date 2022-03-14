@@ -12,8 +12,11 @@ Installation on linux:
 $ sudo apt-get install software-properties-common
 (  software-properties-common    ,  is a base package which is required to install ansible )
 $ sudo apt-add-repository ppa:ansible/ansible
+
 $ sudo apt-get update
+
 $ sudo apt-get install -y ansible
+
 +++++++++++++++++++++++++++++++++
 To check ther version of ansible
 $ ansible --version
